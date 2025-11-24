@@ -4,7 +4,7 @@ import { mockInterviews } from '@/lib/mock-data'
 export async function GET(request, { params }) {
   try {
     const { id } = params
-    const interview = mockInterviews.find((i) => i.id === id)
+    const interview = mockInterviews.find((i) => String(i.id) === String(id))
 
     if (!interview) {
       return NextResponse.json(
