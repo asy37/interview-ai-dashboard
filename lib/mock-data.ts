@@ -1,0 +1,279 @@
+export interface MockUser {
+  id: string
+  email: string
+  password: string
+  name: string
+  role: string
+  avatar: string
+}
+
+export interface MockCandidate {
+  id: number | string
+  name: string
+  email: string
+  phone: string
+  position: string
+  cv: string
+}
+
+export type InterviewType = 'video' | 'assessment' | 'combo'
+export type InterviewStatus = 'pending' | 'completed' | 'awaitingResponse'
+
+export interface InterviewScoreBreakdown {
+  question: string
+  score: number
+  maxScore: number
+}
+
+export interface VideoInterviewScores {
+  communication: number
+  confidence: number
+  clarity: number
+  technical: number
+}
+
+export interface MockInterview {
+  id: number | string
+  candidateId: number | string
+  candidateName: string
+  position: string
+  date: Date
+  type: InterviewType
+  status: InterviewStatus
+  score: number | null
+  notes: string
+  templateId?: string | number | null
+  hrNotes?: string
+  videoUrl?: string
+  transcript?: string
+  aiScores?: VideoInterviewScores
+  assessmentScores?: InterviewScoreBreakdown[]
+}
+
+export interface TemplateQuestion {
+  id: number
+  text: string
+  category: 'technical' | 'culture' | 'behavioral' | 'leadership'
+  difficulty: 'easy' | 'medium' | 'hard'
+  evaluationCriteria: string[]
+}
+
+export interface MockTemplate {
+  id: number
+  name: string
+  questionCount: number
+  createdDate: Date
+  createdBy: string
+  usageCount: number
+  isFavorite: boolean
+  questions: TemplateQuestion[]
+}
+
+export const mockUsers: MockUser[] = [
+  {
+    id: '1',
+    email: 'hr@company.com',
+    password: 'password123',
+    name: 'Sarah Johnson',
+    role: 'HR Manager',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',
+  },
+  {
+    id: '2',
+    email: 'john@company.com',
+    password: 'password123',
+    name: 'John Smith',
+    role: 'HR Specialist',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
+  },
+]
+
+export const mockPositions: string[] = [
+  'Senior Frontend Developer',
+  'Backend Engineer',
+  'Full Stack Developer',
+  'DevOps Engineer',
+  'Product Manager',
+  'UI/UX Designer',
+  'Data Scientist',
+  'Marketing Manager',
+]
+
+export const mockCandidates: MockCandidate[] = [
+  {
+    id: 1,
+    name: 'Alice Johnson',
+    email: 'alice.j@email.com',
+    phone: '+1 234 567 8901',
+    position: 'Senior Frontend Developer',
+    cv: '/mock-cv.pdf',
+  },
+  {
+    id: 2,
+    name: 'Bob Williams',
+    email: 'bob.w@email.com',
+    phone: '+1 234 567 8902',
+    position: 'Backend Engineer',
+    cv: '/mock-cv.pdf',
+  },
+  {
+    id: 3,
+    name: 'Carol Martinez',
+    email: 'carol.m@email.com',
+    phone: '+1 234 567 8903',
+    position: 'Full Stack Developer',
+    cv: '/mock-cv.pdf',
+  },
+  {
+    id: 4,
+    name: 'David Lee',
+    email: 'david.l@email.com',
+    phone: '+1 234 567 8904',
+    position: 'DevOps Engineer',
+    cv: '/mock-cv.pdf',
+  },
+  {
+    id: 5,
+    name: 'Emma Davis',
+    email: 'emma.d@email.com',
+    phone: '+1 234 567 8905',
+    position: 'Product Manager',
+    cv: '/mock-cv.pdf',
+  },
+]
+
+export const mockInterviews: MockInterview[] = [
+  {
+    id: mockCandidates[0].id,
+    candidateId: mockCandidates[0].id,
+    candidateName: mockCandidates[0].name,
+    position: mockCandidates[0].position,
+    date: new Date('2025-06-15T10:00:00'),
+    type: 'video',
+    status: 'completed',
+    score: 85,
+    notes: 'Excellent communication skills, strong technical background.',
+    hrNotes: 'Recommended for second round.',
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    transcript: 'This is a sample transcript of the video interview...',
+    aiScores: {
+      communication: 90,
+      confidence: 85,
+      clarity: 88,
+      technical: 82,
+    },
+  },
+  {
+    id: mockCandidates[1].id,
+    candidateId: mockCandidates[1].id,
+    candidateName: mockCandidates[1].name,
+    position: mockCandidates[1].position,
+    date: new Date('2025-06-18T14:00:00'),
+    type: 'assessment',
+    status: 'completed',
+    score: 78,
+    notes: 'Good problem-solving abilities.',
+    assessmentScores: [
+      { question: 'Explain RESTful API design', score: 80, maxScore: 100 },
+      { question: 'Database normalization', score: 75, maxScore: 100 },
+      { question: 'System design challenge', score: 80, maxScore: 100 },
+    ],
+  },
+  {
+    id: mockCandidates[2].id,
+    candidateId: mockCandidates[2].id,
+    candidateName: mockCandidates[2].name,
+    position: mockCandidates[2].position,
+    date: new Date('2025-06-20T15:00:00'),
+    type: 'combo',
+    status: 'pending',
+    score: null,
+    notes: '',
+  },
+  {
+    id: mockCandidates[3].id,
+    candidateId: mockCandidates[3].id,
+    candidateName: mockCandidates[3].name,
+    position: mockCandidates[3].position,
+    date: new Date('2025-06-22T11:00:00'),
+    type: 'video',
+    status: 'awaitingResponse',
+    score: null,
+    notes: 'Invitation sent, waiting for response.',
+  },
+  {
+    id: mockCandidates[4].id,
+    candidateId: mockCandidates[4].id,
+    candidateName: mockCandidates[4].name,
+    position: mockCandidates[4].position,
+    date: new Date('2025-06-25T09:00:00'),
+    type: 'assessment',
+    status: 'pending',
+    score: null,
+    notes: '',
+  },
+]
+
+export const mockTemplates: MockTemplate[] = [
+  {
+    id: 1,
+    name: 'Frontend Developer Assessment',
+    questionCount: 10,
+    createdDate: new Date('2025-01-15'),
+    createdBy: 'Sarah Johnson',
+    usageCount: 15,
+    isFavorite: true,
+    questions: [
+      {
+        id: 1,
+        text: 'Explain the difference between let, const, and var',
+        category: 'technical',
+        difficulty: 'medium',
+        evaluationCriteria: ['accuracy', 'clarity', 'examples'],
+      },
+      {
+        id: 2,
+        text: 'What are React hooks and why are they useful?',
+        category: 'technical',
+        difficulty: 'medium',
+        evaluationCriteria: ['understanding', 'practical-knowledge'],
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: 'Backend Engineering Questions',
+    questionCount: 8,
+    createdDate: new Date('2025-02-10'),
+    createdBy: 'John Smith',
+    usageCount: 12,
+    isFavorite: false,
+    questions: [
+      {
+        id: 1,
+        text: 'Explain database indexing and when to use it',
+        category: 'technical',
+        difficulty: 'hard',
+        evaluationCriteria: ['depth', 'practical-examples'],
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: 'Leadership & Culture Fit',
+    questionCount: 6,
+    createdDate: new Date('2025-03-05'),
+    createdBy: 'Sarah Johnson',
+    usageCount: 25,
+    isFavorite: true,
+    questions: [
+      {
+        id: 1,
+        text: 'Describe a time you led a team through a challenge',
+        category: 'leadership',
+        difficulty: 'medium',
+        evaluationCriteria: ['communication', 'leadership', 'problem-solving'],
+      },
+    ],
+  },
+]
